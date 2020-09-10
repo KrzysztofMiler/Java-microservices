@@ -3,6 +3,7 @@ package io.ksiegarnia.Katalog_ksiazki_service.resources;
 import io.ksiegarnia.Katalog_ksiazki_service.models.KatalogItem;
 import io.ksiegarnia.Katalog_ksiazki_service.models.Ksiazka;
 import io.ksiegarnia.Katalog_ksiazki_service.models.Oceny;
+import io.ksiegarnia.Katalog_ksiazki_service.models.UserOceny;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,14 +26,10 @@ public class KatalogKsiazkiResource {
     @RequestMapping("/{userID}")
     public List<KatalogItem> getCatalog(@PathVariable("userID") String userID){
 
-        List<Oceny> oceny = Arrays.asList(
-                new Oceny(3,"sdasdasda"),
-            new Oceny(2,"sdasddsadsadasdsadasasda"),
-            new Oceny(5,"sdsda")
-        );
+        UserOceny oceny = restTemplate.getForObject("http://OcenyKsiazki/oceny/users/"+userID, UserOceny.class);
 
-        return oceny.stream().map(ocena -> {
-            Ksiazka ksiazka = restTemplate.getForObject("http://localhost:8081/ksiazka/" + ocena.getKsiazkaID(), Ksiazka.class);
+        return oceny.getUserOceny().stream().map(ocena -> {
+            Ksiazka ksiazka = restTemplate.getForObject("http://InformacjeKsiazkiService/ksiazka/" + ocena.getKsiazkaID(), Ksiazka.class);
             return new KatalogItem(ksiazka.getNazwa(),"asd",ocena.getOcena());
         }).collect(Collectors.toList());
 

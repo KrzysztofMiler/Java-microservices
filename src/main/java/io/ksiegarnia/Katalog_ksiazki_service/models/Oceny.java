@@ -4,6 +4,9 @@ public class Oceny {
     private int ocena;
     private String ksiazkaID;
 
+    public Oceny() {
+    }
+
     public Oceny(int ocena, String ksiazkaID) {
         this.ocena = ocena;
         this.ksiazkaID = ksiazkaID;
