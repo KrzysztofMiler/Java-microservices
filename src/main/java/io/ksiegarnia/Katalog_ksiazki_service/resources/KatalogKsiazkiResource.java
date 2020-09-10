@@ -3,6 +3,7 @@ package io.ksiegarnia.Katalog_ksiazki_service.resources;
 import io.ksiegarnia.Katalog_ksiazki_service.models.KatalogItem;
 import io.ksiegarnia.Katalog_ksiazki_service.models.Ksiazka;
 import io.ksiegarnia.Katalog_ksiazki_service.models.Oceny;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -18,11 +19,11 @@ import java.util.stream.Collectors;
 @RequestMapping("/katalog")
 public class KatalogKsiazkiResource {
 
+    @Autowired//referencja do bean w Applicaton
+    private RestTemplate restTemplate;
+
     @RequestMapping("/{userID}")
     public List<KatalogItem> getCatalog(@PathVariable("userID") String userID){
-
-        RestTemplate restTemplate = new RestTemplate();
-
 
         List<Oceny> oceny = Arrays.asList(
                 new Oceny(3,"sdasdasda"),
