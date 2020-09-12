@@ -1,6 +1,6 @@
 # Java-microservices
 
-Projekt Księgarnia
+Projekt testowy Księgarnia
 
 Wpisując localhost:8080/katalog/userID otrzymamy listę "książek" wyporzyczonych przez usera wraz z jego oceną.
 Funkcjonuje przez wykorzystanie EurekaServer.
